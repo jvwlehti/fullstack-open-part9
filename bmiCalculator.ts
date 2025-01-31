@@ -52,13 +52,16 @@ function calculateBmi(height: number, weight: number): string {
     return bmiMessage + ' ' + bmi.toFixed(2);
 }
 
-try {
-    const {height, weight} = parseArguments(process.argv);
-    console.log(calculateBmi(height, weight));
-} catch (error: unknown) {
-    let errorMessage = 'something went wrong: ';
-    if (error instanceof Error) {
-        errorMessage += '\n' + error.message;
+if (require.main === module) {
+    try {
+        const {height, weight} = parseArguments(process.argv);
+        console.log(calculateBmi(height, weight));
+    } catch (error: unknown) {
+        let errorMessage = 'something went wrong: ';
+        if (error instanceof Error) {
+            errorMessage += '\n' + error.message;
+        }
+        console.log(errorMessage);
     }
-    console.log(errorMessage);
 }
+export default { calculateBmi };

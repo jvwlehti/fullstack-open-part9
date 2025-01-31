@@ -8,6 +8,25 @@ interface ExerciseSummary {
     avg: number;
 }
 
+interface ExerciseItem {
+    sample: number[],
+    target: number,
+}
+
+const parseArguments = (args: string[]): ExerciseItem => {
+    const data = args.splice(2);
+    const exercises: number[] = [];
+
+    for(const number of data) {
+        if (isNaN(Number(number))) throw new Error('Provided value should be a number');
+        exercises.push(Number(number));
+    }
+    return {
+        sample: exercises.splice(1),
+        target: exercises[0],
+    };
+};
+
 function calculateEx(sample: number[], goal: number): ExerciseSummary {
     const periodLength = sample.length;
     const trainingDays = sample.filter(hour => hour > 0).length;
@@ -43,4 +62,17 @@ function calculateEx(sample: number[], goal: number): ExerciseSummary {
     };
 }
 
-console.log(calculateEx([3, 0, 2, 4.5, 0, 3, 1], 2));
+if (require.main === module) {
+    try {
+        const {sample, target} = parseArguments(process.argv);
+        console.log(calculateEx(sample, target));
+    } catch (error: unknown) {
+        let errorMessage = 'something went wrong: ';
+        if (error instanceof Error) {
+            errorMessage += '\n' + error.message;
+        }
+        console.log(errorMessage);
+    }
+}
+
+export default calculateEx
