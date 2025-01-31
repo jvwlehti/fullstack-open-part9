@@ -12,14 +12,14 @@ const parseArguments = (args: string[]): BmiValues => {
         return {
             height: Number(args[2]),
             weight: Number(args[3])
-        }
+        };
     } else {
         throw new Error('Provided values were not numbers!');
     }
-}
+};
 
 const calculateBmi =(height: number, weight: number): string => {
-    let bmiHeight = (height / 100)**2
+    const bmiHeight = (height / 100)**2;
     let bmiMessage = '';
 
     const bmi = weight / bmiHeight;
@@ -41,16 +41,16 @@ const calculateBmi =(height: number, weight: number): string => {
             bmiMessage += "Overweight (Pre-obese)";
             break;
         case (bmi < 34.9):
-            bmiMessage += "Obese (Class I)"
+            bmiMessage += "Obese (Class I)";
             break;
         case (bmi < 39.9):
-            bmiMessage += "Obese (Class II)"
+            bmiMessage += "Obese (Class II)";
             break;
         default:
-            bmiMessage += "Obese (Class III)"
+            bmiMessage += "Obese (Class III)";
     }
     return bmiMessage + ' ' + bmi.toFixed(2);
-}
+};
 
 if (require.main === module) {
     try {
