@@ -27,7 +27,7 @@ const parseArguments = (args: string[]): ExerciseItem => {
     };
 };
 
-function calculateEx(sample: number[], goal: number): ExerciseSummary {
+const calculateEx = (sample: number[], goal: number): ExerciseSummary => {
     const periodLength = sample.length;
     const trainingDays = sample.filter(hour => hour > 0).length;
     const avg = sample.reduce((a, b) => a + b, 0) / periodLength;
