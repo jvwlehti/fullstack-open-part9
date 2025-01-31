@@ -18,7 +18,7 @@ const parseArguments = (args: string[]): BmiValues => {
     }
 }
 
-function calculateBmi(height: number, weight: number): string {
+const calculateBmi =(height: number, weight: number): string => {
     let bmiHeight = (height / 100)**2
     let bmiMessage = '';
 
@@ -64,4 +64,5 @@ if (require.main === module) {
         console.log(errorMessage);
     }
 }
-export default { calculateBmi };
+
+export default calculateBmi;
