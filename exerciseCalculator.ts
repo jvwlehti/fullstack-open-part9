@@ -75,4 +75,4 @@ if (require.main === module) {
     }
 }
 
-export default calculateEx
+export default calculateEx;
