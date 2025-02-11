@@ -1,70 +1,14 @@
 import {Gender, NewPatientEntry} from "./types";
+import {z} from "zod";
 
-const parseName = (name: unknown) => {
-    if (!name || !isString(name)) {
-        throw new Error('Incorrect or missing name');
-    }
+export const NewPatientEntrySchema = z.object({
+    name: z.string(),
+    dateOfBirth: z.string().date(),
+    ssn: z.string(),
+    gender: z.nativeEnum(Gender),
+    occupation: z.string(),
+});
 
-    return name;
+export const toNewPatientEntry = (object: unknown): NewPatientEntry =>{
+    return NewPatientEntrySchema.parse(object);
 };
-
-const parseDate = (date: unknown): string => {
-    if (!date || !isString(date) || !isDate(date)) {
-        throw new Error('Incorrect or missing date: ' + date);
-    }
-    return date;
-};
-
-const parseSsn = (ssn: unknown) => {
-    if (!ssn || !isString(ssn)) {
-        throw new Error('Incorrect or missing ssn');
-    }
-
-    return ssn;
-};
-
-const parseGender = (gender: unknown): Gender => {
-    if (!gender || !isString(gender) || !isGender(gender)) {
-        throw new Error('Incorrect or missing gender: ' + gender);
-    }
-    return gender;
-};
-
-const parseOccupation = (occupation: unknown) => {
-    if (!occupation || !isString(occupation)) {
-        throw new Error('Incorrect or missing occupation: ' + occupation);
-    }
-    return occupation;
-};
-
-const isString = (text: unknown): text is string => {
-    return typeof text === 'string' || text instanceof String;
-};
-
-const isDate = (date: string): boolean => {
-    return Boolean(Date.parse(date));
-};
-
-const isGender = (param: string): param is Gender => {
-  return Object.values(Gender).map(v => v.toString()).includes(param);
-};
-
-const toNewPatientEntry = (object: unknown): NewPatientEntry => {
-    if ( !object || typeof object !== 'object' ) {
-        throw new Error('Incorrect or missing data');
-    }
-
-    if ('name' in object && 'dateOfBirth' in object && 'ssn' in object && 'gender' in object && 'occupation' in object)  {
-        return {
-            name: parseName(object.name),
-            dateOfBirth: parseDate(object.dateOfBirth),
-            ssn: parseSsn(object.ssn),
-            gender: parseGender(object.gender),
-            occupation: parseOccupation(object.occupation),
-        };
-    }
-
-    throw new Error('Incorrect data: some fields are missing');
-};
-
-export default toNewPatientEntry;
