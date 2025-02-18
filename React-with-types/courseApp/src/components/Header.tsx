@@ -1,8 +1,6 @@
-
-interface HeaderProps {
-    name: string;
-}
+import { HeaderProps } from "../types.ts";
 
 export const Header = (props: HeaderProps) => {
-    return <h1>{props.name}</h1>;
+    const { title } = props;
+    return <h1>{title}</h1>;
 }
