@@ -1,19 +1,12 @@
-interface ContentProps {
-    name: string;
-    exerciseCount: number;
-}
-
-interface ContentList {
-    contents: ContentProps[]
-}
+import Part from "./Part.tsx";
+import { ContentList } from "../types.ts";
 
 export const Content = (props: ContentList) => {
+    const { contents } = props;
     return (
         <div>
-            {props.contents.map((content, index) => (
-                <p key={index}>
-                    {content.name} {content.exerciseCount}
-                </p>
+            {contents.map((part, index) => (
+                 <Part part={part} key={index} />
             ))}
         </div>
     );
