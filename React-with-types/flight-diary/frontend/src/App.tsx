@@ -2,10 +2,9 @@ import {useEffect, useState} from 'react';
 import { DiaryEntry } from "./types";
 import {DiaryEntries} from "./components/Diaries.tsx";
 import {getAllDiaries} from "./services/diaryService.ts";
-//import * as React from "react";
+import {DiaryForm} from "./components/DiaryForm.tsx";
 
 const App = () => {
-    //const [newDiaryEntry, setNewDiaryEntry] = useState('');
     const [diaries, setDiaries] = useState<DiaryEntry[]>([]);
 
     useEffect(() => {
@@ -14,14 +13,10 @@ const App = () => {
         })
     }, [])
 
-    // const diaryCreation = (event: React.SyntheticEvent)=> {
-    //     event.preventDefault()
-    //     createDiaryEntry({  });
-    // }
-
     return (
         <div>
-            <h1>Diary entries</h1>
+            <h1>Flight Diary</h1>
+            <DiaryForm setDiaries={setDiaries} diaries={diaries} />
             <DiaryEntries diaries={diaries} />
         </div>
     )

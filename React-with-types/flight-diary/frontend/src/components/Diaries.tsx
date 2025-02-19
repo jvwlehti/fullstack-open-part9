@@ -6,6 +6,7 @@ export const DiaryEntries = (props: Diaries)=> {
 
     return (
         <div>
+            <h2>Diary entries</h2>
             {diaries.map((entry, index ) => (
                 <DiaryItem diary={entry} key={index} />
             ))}

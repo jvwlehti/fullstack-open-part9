@@ -1,17 +1,4 @@
-export enum Weather {
-    Sunny = 'sunny',
-    Rainy = 'rainy',
-    Cloudy = 'cloudy',
-    Stormy = 'stormy',
-    Windy = 'windy',
-}
-
-export enum Visibility {
-    Great = 'great',
-    Good = 'good',
-    Ok = 'ok',
-    Poor = 'poor',
-}
+import * as React from "react";;
 
 export interface Diary {
     diary: DiaryEntry;
@@ -20,10 +7,20 @@ export interface Diary {
 export interface DiaryEntry {
     id: number;
     date: string;
-    weather: Weather;
-    visibility: Visibility;
+    weather: string;
+    visibility: string;
     comment?: string;
 }
+
+export interface RadioButtonProps {
+    button: string;
+    selectedValue: string;
+    handleSelect: (event: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+export const VisibilityOptions =  ["great", "good", "ok", "poor"]
+
+export const WeatherOptions = ["sunny", "rainy", "cloudy", "stormy", "windy"]
 
 export type NewDiaryEntry = Omit<DiaryEntry, 'id'>
 
