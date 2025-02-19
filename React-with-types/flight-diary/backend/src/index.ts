@@ -1,6 +1,16 @@
 import express from 'express';
+import cors from 'cors';
 import diaryRouter from './routes/diaries';
 const app = express();
+
+const allowedOrigins = ['http://localhost:3000', 'http://localhost:5173'];
+
+const options: cors.CorsOptions = {
+    origin: allowedOrigins
+};
+
+app.use(cors(options));
+
 app.use(express.json());
 
 const PORT = 3000;
