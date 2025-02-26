@@ -17,6 +17,62 @@ export interface Patient {
   gender: Gender;
   ssn?: string;
   dateOfBirth?: string;
+  entries: Entry[];
 }
 
 export type PatientFormValues = Omit<Patient, "id" | "entries">;
+
+export interface PatientInformationProp {
+  diagnoses: Diagnosis[];
+}
+
+interface Discharge {
+  date: string;
+  criteria: string;
+}
+
+interface SickLeave {
+  startDate: string;
+  endDate: string;
+}
+
+interface BaseEntry {
+  id: string;
+  description: string;
+  date: string;
+  specialist: string;
+
+  diagnosisCodes?: Array<Diagnosis['code']>;
+}
+
+interface HealthCheckEntry extends BaseEntry {
+  type: EntryType.HealthCheck
+  healthCheckRating: number;
+}
+
+interface OccupationalHealthcareEntry extends BaseEntry {
+  type: EntryType.OccupationalHealthcare
+  employerName: string;
+  sickLeave?: SickLeave;
+}
+
+interface HospitalEntry extends BaseEntry {
+  type: EntryType.Hospital
+  discharge: Discharge;
+}
+
+export enum EntryType {
+  HealthCheck = "HealthCheck",
+  OccupationalHealthcare = "OccupationalHealthcare",
+  Hospital = "Hospital",
+}
+
+export type Entry =
+    | HospitalEntry
+    | OccupationalHealthcareEntry
+    | HealthCheckEntry;
+
+export interface DiagnosisProps {
+  diagnoses: Diagnosis[];
+  entry: Entry;
+}
